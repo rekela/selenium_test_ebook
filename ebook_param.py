@@ -69,7 +69,6 @@ def test_generator(ebook_name):
 
         submit_button = self.browser.find_element_by_xpath("//button[@type='submit']")
         submit_button.submit()
-        # self.assertTrue(self.browser.find_element_by_xpath("//body[contains('Submitted')]"))
 
     return testEbookDownload
 
