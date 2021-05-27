@@ -60,11 +60,10 @@ def test_generator(ebook_name):
 
         self.browser.find_element_by_name("name").click()
         self.browser.find_element_by_name("name").send_keys("Ann")
-        time.sleep(3)
 
         email = self.browser.find_element_by_id("email")
         action.move_to_element(email).click().perform()
-        email.send_keys("ann@gmail.com")
+        email.send_keys("ann@gla.com")
 
         self.browser.find_element_by_name("company").click()
         self.browser.find_element_by_name("company").send_keys("GLA")
@@ -75,15 +74,17 @@ def test_generator(ebook_name):
 
         phone_number = self.browser.find_element_by_id("phoneNumber")
         action.move_to_element(phone_number).click().perform()
-        phone_number.send_keys("123456789")
+        phone_number.send_keys("723434885")
 
         self.assertTrue(self.browser.find_element_by_xpath("//div[@class='thanks-message']"))
 
         submit_button = self.browser.find_element_by_xpath("//*[@id='uspForm']/div[2]/div/button")
-        action.move_to_element(submit_button).click(submit_button).perform()
-        submit_button.submit()
+        self.browser.execute_script("arguments[0].click();", submit_button)
 
         self.assertTrue(self.browser.find_element_by_xpath("//div[@class='thanks-message']"))
+        self.assertTrue(self.browser.find_element_by_link_text("HERE"))
+        self.browser.find_element_by_link_text("HERE").click()
+        time.sleep(5)
 
     return testEbookDownload
 
@@ -94,3 +95,4 @@ if __name__ == '__main__':
     test = test_generator(tested_ebook)
     setattr(Ebook, test_name, test)
     unittest.main()
+
