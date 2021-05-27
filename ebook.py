@@ -3,6 +3,9 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 ebooks = {
@@ -59,22 +62,22 @@ def test_generator(ebook_name):
         action = ActionChains(self.browser)
 
         self.browser.find_element_by_name("name").click()
-        self.browser.find_element_by_name("name").send_keys("Ann")
+        self.browser.find_element_by_name("name").send_keys("Ela")
 
         email = self.browser.find_element_by_id("email")
         action.move_to_element(email).click().perform()
-        email.send_keys("ann@gla.com")
+        email.send_keys("ela@salesmanago.com")
 
         self.browser.find_element_by_name("company").click()
-        self.browser.find_element_by_name("company").send_keys("GLA")
+        self.browser.find_element_by_name("company").send_keys("Sales Manago")
 
         url = self.browser.find_element_by_name("url")
         action.move_to_element(url).click().perform()
-        url.send_keys("gla.com")
+        url.send_keys("https://www.salesmanago.com/")
 
         phone_number = self.browser.find_element_by_id("phoneNumber")
         action.move_to_element(phone_number).click().perform()
-        phone_number.send_keys("723434885")
+        phone_number.send_keys("123456789")
 
         self.assertTrue(self.browser.find_element_by_xpath("//div[@class='thanks-message']"))
 
@@ -82,7 +85,9 @@ def test_generator(ebook_name):
         self.browser.execute_script("arguments[0].click();", submit_button)
 
         self.assertTrue(self.browser.find_element_by_xpath("//div[@class='thanks-message']"))
-        self.assertTrue(self.browser.find_element_by_link_text("HERE"))
+
+        wait = WebDriverWait(self.browser, 10)
+        wait.until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "HERE")))
         self.browser.find_element_by_link_text("HERE").click()
         time.sleep(5)
 
